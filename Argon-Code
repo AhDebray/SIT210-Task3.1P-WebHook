@@ -1,0 +1,31 @@
+int led2 = D7; 
+
+int lightsensor = A0;
+int lightLevel;
+
+void setup() {
+
+  pinMode(led2, OUTPUT);
+  pinMode(lightsensor, INPUT);
+
+}
+
+void loop() {
+    
+    lightLevel = analogRead(lightsensor);
+    String light = String(lightLevel);
+    
+    if (lightLevel < 15) {
+        
+        digitalWrite(led2, LOW);
+        Particle.publish("light", light, PRIVATE);
+    } 
+    else{
+        
+        digitalWrite(led2, HIGH);
+        Particle.publish("light", light, PRIVATE);
+    }
+    
+    delay(30000);
+
+}
